@@ -2,6 +2,8 @@
 
 namespace kukuhkkh\LumenGenerator\Console;
 
+use Symfony\Component\Console\Input\InputOption;
+
 class RepositoryMakeCommand extends GeneratorCommand
 {
     /**
@@ -10,6 +12,13 @@ class RepositoryMakeCommand extends GeneratorCommand
      * @var string
      */
     protected $signature = 'make:repository {name}Repository';
+
+    /**
+     * The console command name.
+     *
+     * @var string
+     */
+    protected $name = 'make:repository';
 
     /**
      * The console command description.
