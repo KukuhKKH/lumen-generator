@@ -2,7 +2,10 @@
 
 namespace kukuhkkh\LumenGenerator\Console;
 
+use Illuminate\Console\GeneratorCommand;
+use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Exception\InvalidArgumentException;
 
 class RepositoryMakeCommand extends GeneratorCommand
 {
