@@ -1,0 +1,19 @@
+<?php
+
+namespace DummyNamespace;
+
+//use Your Model
+
+/**
+ * Class DummyClass.
+ */
+class DummyClass
+{
+    /**
+     * @return string
+     *  Return the model
+     */
+    public function model() {
+        //return YourModel::class;
+    }
+}
