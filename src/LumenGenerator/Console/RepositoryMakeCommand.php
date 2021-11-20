@@ -7,13 +7,6 @@ use Symfony\Component\Console\Input\InputOption;
 class RepositoryMakeCommand extends GeneratorCommand
 {
     /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
-    protected $signature = 'make:repository {name}';
-
-    /**
      * The console command name.
      *
      * @var string
@@ -93,7 +86,7 @@ class RepositoryMakeCommand extends GeneratorCommand
     protected function getOptions()
     {
         return [
-            ['resource', 'r', InputOption::VALUE_NONE, 'Generate a resource repository class.'],
+            ['resource', 'r', InputOption::VALUE_NONE, 'Generate a resource controller class.'],
         ];
     }
 }
