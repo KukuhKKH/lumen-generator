@@ -8,46 +8,46 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 class DummyClass
 {
     /**
-     * Index all DummyModel.
+     * Index all DummyClass.
      *
      * @param void
-     * @return DummyModel
+     * @return DummyClass
      */
     public function index() {
         try {
-            return DummyModel::all();
+            return DummyClass::all();
         } catch (\Exception $e) {
             throw $e;
         }
     }
 
     /**
-     * Get DummyModel by id.
+     * Get DummyClass by id.
      *
      * @param int $id
-     * @return DummyModel
+     * @return DummyClass
      */
     public function show($id) {
         try {
-            return DummyModel::findOrFail($id);
+            return DummyClass::findOrFail($id);
         } catch (\Exception $e) {
             throw $e; report($e); return $e;
         }
     }
 
     /**
-     * Create new DummyModel.
+     * Create new DummyClass.
      *
      * @param Request $request
-     * @return DummyModel|bool
+     * @return DummyClass|bool
      */
     public function create($request)
     {
         DB::beginTransaction();
         try {
-            $DummyModel = DummyModel::create($request->all());
+            $DummyClass = DummyClass::create($request->all());
             DB::commit();
-            return $DummyModel;
+            return $DummyClass;
         } catch (\Exception $e) {
             DB::rollback();
             throw $e; report($e); return $e;
@@ -55,19 +55,19 @@ class DummyClass
     }
 
     /**
-     * Update DummyModel by id.
+     * Update DummyClass by id.
      *
      * @param Request $request
      * @param int $id
-     * @return DummyModel|bool
+     * @return DummyClass|bool
      */
     public function update($request, $id) {
         DB::beginTransaction();
         try {
-            $DummyModel = DummyModel::findOrFail($id);
-            $DummyModel->update($request->all());
+            $DummyClass = DummyClass::findOrFail($id);
+            $DummyClass->update($request->all());
             DB::commit();
-            return $DummyModel;
+            return $DummyClass;
         } catch(ModelNotFoundException $e) {
             DB::rollback();
             throw new \Exception("Data tidak ditemukan", 404);
@@ -78,19 +78,19 @@ class DummyClass
     }
 
     /**
-     * Delete DummyModel by id.
+     * Delete DummyClass by id.
      *
      * @param Request $request
      * @param int $id
-     * @return DummyModel|bool
+     * @return DummyClass|bool
      */
     public function delete($id) {
         DB::beginTransaction();
         try {
-            $DummyModel = DummyModel::findOrFail($id);
-            $DummyModel->delete();
+            $DummyClass = DummyClass::findOrFail($id);
+            $DummyClass->delete();
             DB::commit();
-            return $DummyModel;
+            return $DummyClass;
         } catch(ModelNotFoundException $e) {
             DB::rollback();
             throw new \Exception("Data tidak ditemukan", 404);
