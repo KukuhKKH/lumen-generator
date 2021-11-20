@@ -28,6 +28,20 @@ class RepositoryMakeCommand extends GeneratorCommand
     protected $type = 'Repository';
 
     /**
+     * The name of class being generated.
+     *
+     * @var string
+     */
+    private $repositoryClass;
+
+    /**
+     * The name of class being generated.
+     *
+     * @var string
+     */
+    private $model;
+
+    /**
      * Determine if the class already exists.
      *
      * @param  string  $rawName
@@ -55,17 +69,53 @@ class RepositoryMakeCommand extends GeneratorCommand
     }
 
     /**
-     * Build the model replacement values.
+     * Execute the console command.
      *
-     * @param  array  $replace
-     * @return array
+     * @return bool|null
      */
-    // protected function buildModelReplacements(array $replace)
-    // {
-    //     return array_merge($replace, [
-    //         'DummyModelClass' => class_basename($modelClass),
-    //     ]);
-    // }
+    public function fire(){
+        $this->setRepositoryClass();
+        $path = $this->getPath($this->repositoryClass);
+        if ($this->alreadyExists($this->getNameInput())) {
+            $this->error($this->type.' already exists!');
+            return false;
+        }
+        $this->makeDirectory($path);
+        $this->files->put($path, $this->buildClass($this->repositoryClass));
+        $this->info($this->type.' created successfully.');
+        $this->line("<info>Created Repository :</info> $this->repositoryClass");
+    }
+
+    /**
+     * Set repository class name
+     *
+     * @return  void
+     */
+    private function setRepositoryClass()
+    {
+        $name = ucwords(strtolower($this->argument('name')));
+        $this->model = $name;
+        $modelClass = $this->parseName($name);
+        $this->repositoryClass = $modelClass . 'Repository';
+        return $this;
+    }
+
+    /**
+     * Replace the class name for the given stub.
+     *
+     * @param  string  $stub
+     * @param  string  $name
+     * @return string
+     */
+    protected function replaceClass($stub, $name)
+    {
+        if(!$this->argument('name')){
+            throw new InvalidArgumentException("Missing required argument repository name");
+        }
+        $stub = parent::replaceClass($stub, $name);
+
+        return str_replace('DummyModel', $this->model, $stub);
+    }
 
     /**
      * Get the default namespace for the class.
@@ -86,7 +136,19 @@ class RepositoryMakeCommand extends GeneratorCommand
     protected function getOptions()
     {
         return [
-            ['resource', 'r', InputOption::VALUE_NONE, 'Generate a resource controller class.'],
+            ['resource', 'r', InputOption::VALUE_NONE, 'Generate a resource repository class.'],
+        ];
+    }
+
+    /**
+     * Get the console command arguments.
+     *
+     * @return array
+     */
+    protected function getArguments()
+    {
+        return [
+            ['name', InputArgument::REQUIRED, 'The name of the repository class.'],
         ];
     }
 }
