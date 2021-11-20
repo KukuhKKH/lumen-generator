@@ -11,7 +11,7 @@ class RepositoryMakeCommand extends GeneratorCommand
      *
      * @var string
      */
-    protected $signature = 'make:repository {name}Repository';
+    protected $signature = 'make:repository {name}';
 
     /**
      * The console command name.
@@ -58,7 +58,6 @@ class RepositoryMakeCommand extends GeneratorCommand
         }
 
         $stub = isset($stub) ? $stub : '/stubs/repository.stub';
-
         return __DIR__.$stub;
     }
 
@@ -94,7 +93,7 @@ class RepositoryMakeCommand extends GeneratorCommand
     protected function getOptions()
     {
         return [
-            ['resource', 'r', InputOption::VALUE_OPTIONAL, 'Generate a resource repository class.'],
+            ['resource', 'r', InputOption::VALUE_NONE, 'Generate a resource repository class.'],
         ];
     }
 }
