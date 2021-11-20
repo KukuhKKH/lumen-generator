@@ -85,7 +85,7 @@ class RepositoryMakeCommand extends GeneratorCommand
     protected function getOptions()
     {
         return [
-            ['resource', 'r', InputOption::VALUE_NONE, 'Generate a resource repository class.'],
+            ['resource', 'r', InputOption::VALUE_OPTIONAL, 'Generate a resource repository class.'],
         ];
     }
 }
