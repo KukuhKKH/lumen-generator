@@ -9,7 +9,7 @@ class RepositoryMakeCommand extends GeneratorCommand
      *
      * @var string
      */
-    protected $signature = 'make:repository {name}';
+    protected $signature = 'make:repository {name}Repository';
 
     /**
      * The console command description.
@@ -43,8 +43,28 @@ class RepositoryMakeCommand extends GeneratorCommand
      */
     protected function getStub()
     {
-        return __DIR__.'/stubs/repository.stub';
+        $stub = null;
+        if ($this->option('resource')) {
+            $stub = '/stubs/repository.resource.stub';
+        }
+
+        $stub = isset($stub) ? $stub : '/stubs/repository.stub';
+
+        return __DIR__.$stub;
     }
+
+    /**
+     * Build the model replacement values.
+     *
+     * @param  array  $replace
+     * @return array
+     */
+    // protected function buildModelReplacements(array $replace)
+    // {
+    //     return array_merge($replace, [
+    //         'DummyModelClass' => class_basename($modelClass),
+    //     ]);
+    // }
 
     /**
      * Get the default namespace for the class.
@@ -55,5 +75,17 @@ class RepositoryMakeCommand extends GeneratorCommand
     protected function getDefaultNamespace($rootNamespace)
     {
         return $rootNamespace.'\Repositories';
+    }
+
+    /**
+     * Get the console command options.
+     *
+     * @return array
+     */
+    protected function getOptions()
+    {
+        return [
+            ['resource', 'r', InputOption::VALUE_NONE, 'Generate a resource repository class.'],
+        ];
     }
 }

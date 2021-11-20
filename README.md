@@ -21,7 +21,7 @@ composer require kukuhkkh/lumen-generator
 Inside your `bootstrap/app.php` file, add:
 
 ```php
-$app->register(kukuhkkh\LumenGenerator\LumenGeneratorServiceProvider::class);
+$app->register(Kukuhkkh\LumenGenerator\LumenGeneratorServiceProvider::class);
 ```
 
 ## Available Command

@@ -1,0 +1,102 @@
+<?php
+
+namespace DummyNamespace;
+
+use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+
+class DummyClass
+{
+    /**
+     * Index all DummyClass.
+     *
+     * @param void
+     * @return DummyClass
+     */
+    public function index() {
+        try {
+            return DummyClass::all();
+        } catch (\Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * Get DummyClass by id.
+     *
+     * @param int $id
+     * @return DummyClass
+     */
+    public function show($id) {
+        try {
+            return DummyClass::findOrFail($id);
+        } catch (\Exception $e) {
+            throw $e; report($e); return $e;
+        }
+    }
+
+    /**
+     * Create new DummyClass.
+     *
+     * @param Request $request
+     * @return DummyClass|bool
+     */
+    public function create($request)
+    {
+        DB::beginTransaction();
+        try {
+            $DummyClass = DummyClass::create($request->all());
+            DB::commit();
+            return $DummyClass;
+        } catch (\Exception $e) {
+            DB::rollback();
+            throw $e; report($e); return $e;
+        }
+    }
+
+    /**
+     * Update DummyClass by id.
+     *
+     * @param Request $request
+     * @param int $id
+     * @return DummyClass|bool
+     */
+    public function update($request, $id) {
+        DB::beginTransaction();
+        try {
+            $DummyClass = DummyClass::findOrFail($id);
+            $DummyClass->update($request->all());
+            DB::commit();
+            return $DummyClass;
+        } catch(ModelNotFoundException $e) {
+            DB::rollback();
+            throw new \Exception("Data tidak ditemukan", 404);
+        } catch (\Exception $e) {
+            DB::rollback();
+            throw $e; report($e); return $e;
+        }
+    }
+
+    /**
+     * Delete DummyClass by id.
+     *
+     * @param Request $request
+     * @param int $id
+     * @return DummyClass|bool
+     */
+    public function delete($id) {
+        DB::beginTransaction();
+        try {
+            $DummyClass = DummyClass::findOrFail($id);
+            $DummyClass->delete();
+            DB::commit();
+            return $DummyClass;
+        } catch(ModelNotFoundException $e) {
+            DB::rollback();
+            throw new \Exception("Data tidak ditemukan", 404);
+        } catch (\Exception $e) {
+            DB::rollback();
+            throw $e; report($e); return $e;
+        }
+    }
+}
